@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:video_player_app_flutter/providers/video_provider.dart';
 import 'package:video_player_app_flutter/widgets/text_widget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(videoProvider.notifier).fetchVideos();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                       height: 192.h,
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: NetworkImage("assets/images/test.png"),
+                              image: AssetImage("assets/images/test.png"),
                               fit: BoxFit.cover)),
                       child: Padding(
                         padding: const EdgeInsets.all(12),
@@ -59,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 20.spMax,
-                            backgroundImage: NetworkImage("assets/images/test2.png"),
+                            backgroundImage: AssetImage("assets/images/test2.png"),
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
