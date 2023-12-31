@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:video_player_app_flutter/widgets/vp_text.dart';
+import 'package:video_player_app_flutter/widgets/text_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              VPText(text: 'Trending Videos'),
+              TextWidget(text: 'Trending Videos'),
               SizedBox(height: 16.h),
               ListView.builder(
                 shrinkWrap: true,
@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                                 color: Colors.black,
                                 borderRadius: BorderRadius.circular(4)),
                             child: Center(
-                                child: VPText(
+                                child: TextWidget(
                                     text: '3:40',
                                     textColor: Colors.white,
                                     fontSize: 12,
@@ -66,14 +66,14 @@ class HomeScreen extends StatelessWidget {
                             children: [
                               SizedBox(
                                 width: 235.w,
-                                child: VPText(
+                                child: TextWidget(
                                     text:
                                     "আরব নেতাদের যে ভুলে ফি*লি*স্তি*নের এই দুর্দাশা | আবু ত্বহা মুহাম্মদ আদনান",
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600),
                               ),
                               SizedBox(height: 8.h),
-                              VPText(
+                              TextWidget(
                                   text: '53,245 views  .  Feb 21,2021',
                                   textColor: Colors.grey,
                                   fontSize: 13,

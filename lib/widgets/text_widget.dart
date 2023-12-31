@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class VPText extends StatelessWidget {
-  VPText(
+class TextWidget extends StatelessWidget {
+  const TextWidget(
       {super.key,
       required this.text,
       this.fontSize = 20,
       this.textColor = Colors.black,
       this.fontWeight = FontWeight.w700});
 
-  String text;
-  double? fontSize;
-  FontWeight? fontWeight;
-  Color textColor;
+  final String text;
+  final double? fontSize;
+  final FontWeight? fontWeight;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
