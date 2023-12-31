@@ -9,7 +9,7 @@ class PlayVideoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.withOpacity(0.1),
+      backgroundColor: Colors.grey.withOpacity(0.2),
       body: Column(
         children: [
           Container(
@@ -45,23 +45,19 @@ class PlayVideoScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ActionCon(
-                        width: 110.w,
-                        height: 56.h,
+                        width: 125.w,
                         icon: "assets/images/love.png",
                         title: "Mash Allah (12K)"),
                     ActionCon(
                         width: 80.w,
-                        height: 56.h,
                         icon: "assets/images/like.png",
                         title: "LIKE (12K)"),
                     ActionCon(
                         width: 60.w,
-                        height: 56.h,
                         icon: "assets/images/share.png",
                         title: "SHARE"),
                     ActionCon(
                         width: 65.w,
-                        height: 56.h,
                         icon: "assets/images/report.png",
                         title: "REPORT"),
                   ],
@@ -97,19 +93,19 @@ class PlayVideoScreen extends StatelessWidget {
                     Container(
                       width: 109.w,
                       height: 33.h,
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 8),
                       decoration: BoxDecoration(
                           color: Colors.lightBlue,
                           borderRadius: BorderRadius.circular(4)),
-                      child: const Row(
+                      child: Row(
                         children: [
-                          Icon(Icons.add, color: Colors.white, size: 16),
-                          SizedBox(width: 8),
+                          const Icon(Icons.add, color: Colors.white, size: 16),
+                          SizedBox(width: 8.w),
                           TextWidget(
                               text: 'Subscribe',
                               textColor: Colors.white,
-                              fontSize: 12,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.w500)
                         ],
                       ),
@@ -119,14 +115,92 @@ class PlayVideoScreen extends StatelessWidget {
               ],
             ),
           ),
-          Divider(height: 32),
-
-          Row(
-            children: [
-              TextWidget(text: 'Comments  7.5K', textColor: Colors.grey, fontSize: 12, fontWeight: FontWeight.w400),
-              Icon(Icons.send)
-            ],
-          )
+          const Divider(height: 32),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextWidget(
+                        text: 'Comments  7.5K',
+                        textColor: Colors.grey,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400),
+                    Image.asset("assets/images/arrow.png")
+                  ],
+                ),
+                SizedBox(height: 8.h),
+                TextFormField(
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500
+                  ),
+                  decoration: InputDecoration(
+                      isDense: true,
+                      hintText: 'Add Comment',
+                      hintStyle: const TextStyle(color: Colors.grey),
+                      suffixIcon: const Icon(Icons.send_rounded, color: Colors.grey),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.blue),
+                          borderRadius: BorderRadius.circular(6)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(6)),
+                      filled: true,
+                      fillColor: Colors.white),
+                ),
+                SizedBox(height: 16.h),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      radius: 16.r,
+                      backgroundImage: NetworkImage("assets/images/test4.png"),
+                    ),
+                    SizedBox(width: 7.w),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Fahmida khanom ',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '2 days ago',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 8,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 8.h),
+                        SizedBox(
+                          width: 306.w,
+                          child: const TextWidget(
+                              text: "হুজুরের বক্তব্য গুলো ইংরেজি তে অনুবাদ করে সারা পৃথিবীর মানুষদের কে শুনিয়ে দিতে হবে। কথা গুলো খুব দামি",
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          const Divider(height: 32),
         ],
       ),
     );

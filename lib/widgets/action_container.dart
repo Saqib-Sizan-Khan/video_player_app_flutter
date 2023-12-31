@@ -6,12 +6,10 @@ class ActionCon extends StatelessWidget {
   const ActionCon(
       {super.key,
       required this.width,
-      required this.height,
       required this.icon,
       required this.title});
 
   final double width;
-  final double height;
   final String icon;
   final String title;
 
@@ -19,7 +17,7 @@ class ActionCon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: height,
+      height: 56.h,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -30,7 +28,7 @@ class ActionCon extends StatelessWidget {
           TextWidget(
               text: title,
               textColor: Colors.grey.shade500,
-              fontSize: 12,
+              fontSize: 12.spMin,
               fontWeight: FontWeight.w600)
         ],
       ),
