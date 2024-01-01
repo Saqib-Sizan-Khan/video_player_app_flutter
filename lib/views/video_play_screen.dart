@@ -17,14 +17,15 @@ class PlayVideoScreen extends ConsumerStatefulWidget {
 }
 
 class _PlayVideoScreenState extends ConsumerState<PlayVideoScreen> {
-
   late FlickManager flickManager;
   bool isVideoPlaying = false;
 
   @override
   void initState() {
     super.initState();
-    flickManager = FlickManager(videoPlayerController:VideoPlayerController.networkUrl(Uri.parse(widget.video.manifest)));
+    flickManager = FlickManager(
+        videoPlayerController:
+            VideoPlayerController.networkUrl(Uri.parse(widget.video.manifest)));
   }
 
   @override
@@ -42,15 +43,15 @@ class _PlayVideoScreenState extends ConsumerState<PlayVideoScreen> {
       body: Column(
         children: [
           Container(
-            width: double.maxFinite,
-            height: 211.h,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(widget.video.thumbnail), fit: BoxFit.cover)),
-            child: FlickVideoPlayer(
-              flickManager: flickManager,
-            )
-          ),
+              width: double.maxFinite,
+              height: 211.h,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(widget.video.thumbnail),
+                      fit: BoxFit.cover)),
+              child: FlickVideoPlayer(
+                flickManager: flickManager,
+              )),
           SizedBox(height: 15.h),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -102,7 +103,8 @@ class _PlayVideoScreenState extends ConsumerState<PlayVideoScreen> {
                       children: [
                         CircleAvatar(
                           radius: 20.r,
-                          backgroundImage: NetworkImage(widget.video.channelImage),
+                          backgroundImage:
+                              NetworkImage(widget.video.channelImage),
                         ),
                         SizedBox(width: 8.w),
                         Column(
@@ -113,7 +115,8 @@ class _PlayVideoScreenState extends ConsumerState<PlayVideoScreen> {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500),
                             TextWidget(
-                                text: '${widget.video.channelSubscriber} Subscribers',
+                                text:
+                                    '${widget.video.channelSubscriber} Subscribers',
                                 textColor: Colors.grey,
                                 fontSize: 11,
                                 fontWeight: FontWeight.w400),
@@ -154,7 +157,7 @@ class _PlayVideoScreenState extends ConsumerState<PlayVideoScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextWidget(
+                    const TextWidget(
                         text: 'Comments  7.5K',
                         textColor: Colors.grey,
                         fontSize: 12,
@@ -187,7 +190,8 @@ class _PlayVideoScreenState extends ConsumerState<PlayVideoScreen> {
                   children: [
                     CircleAvatar(
                       radius: 16.r,
-                      backgroundImage: AssetImage("assets/images/test4.png"),
+                      backgroundImage:
+                          const AssetImage("assets/images/test4.png"),
                     ),
                     SizedBox(width: 7.w),
                     Column(
