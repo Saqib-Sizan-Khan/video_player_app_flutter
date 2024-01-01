@@ -1,3 +1,4 @@
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,21 +18,18 @@ class PlayVideoScreen extends ConsumerStatefulWidget {
 
 class _PlayVideoScreenState extends ConsumerState<PlayVideoScreen> {
 
-  late VideoPlayerController _controller;
+  late FlickManager flickManager;
   bool isVideoPlaying = false;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.video.manifest))
-      ..initialize().then((_) {
-        setState(() {});
-      });
+    flickManager = FlickManager(videoPlayerController:VideoPlayerController.networkUrl(Uri.parse(widget.video.manifest)));
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    flickManager.dispose();
     super.dispose();
   }
 
@@ -49,26 +47,9 @@ class _PlayVideoScreenState extends ConsumerState<PlayVideoScreen> {
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: NetworkImage(widget.video.thumbnail), fit: BoxFit.cover)),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                if (!_controller.value.isInitialized || !isVideoPlaying)
-                  IconButton(
-                    icon: Icon(Icons.play_circle_filled, size: 64),
-                    onPressed: () {
-                      setState(() {
-                        isVideoPlaying = true;
-                        _controller.play();
-                      });
-                    },
-                  ),
-                if (_controller.value.isInitialized && isVideoPlaying)
-                  AspectRatio(
-                    aspectRatio: _controller.value.aspectRatio,
-                    child: VideoPlayer(_controller),
-                  ),
-              ],
-            ),
+            child: FlickVideoPlayer(
+              flickManager: flickManager,
+            )
           ),
           SizedBox(height: 15.h),
           Padding(
