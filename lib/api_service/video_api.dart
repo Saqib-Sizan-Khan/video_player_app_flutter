@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:video_player_app_flutter/model/video_model.dart';
 

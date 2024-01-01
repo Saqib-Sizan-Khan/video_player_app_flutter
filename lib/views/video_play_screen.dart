@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:video_player_app_flutter/model/video_model.dart';
 import 'package:video_player_app_flutter/widgets/action_container.dart';
 import 'package:video_player_app_flutter/widgets/text_widget.dart';
 
 class PlayVideoScreen extends StatelessWidget {
-  const PlayVideoScreen({super.key});
+  const PlayVideoScreen({super.key, required this.video});
+
+  final VideoModel video;
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    Duration difference = now.difference(video.dateAndTime);
+
     return Scaffold(
-      backgroundColor: Colors.grey.withOpacity(0.2),
       body: Column(
         children: [
           Container(
@@ -17,8 +22,7 @@ class PlayVideoScreen extends StatelessWidget {
             height: 211.h,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: NetworkImage("assets/images/test.png"),
-                    fit: BoxFit.cover)),
+                    image: NetworkImage(video.thumbnail), fit: BoxFit.cover)),
           ),
           SizedBox(height: 15.h),
           Padding(
@@ -29,14 +33,15 @@ class PlayVideoScreen extends StatelessWidget {
                 SizedBox(
                   width: double.maxFinite,
                   child: TextWidget(
-                      text:
-                          "আরব নেতাদের যে ভুলে ফি*লি*স্তি*নের এই দুর্দাশা | আবু ত্বহা মুহাম্মদ আদনান",
+                      text: video.title,
                       fontSize: 15,
                       fontWeight: FontWeight.w600),
                 ),
                 SizedBox(height: 8.h),
                 TextWidget(
-                    text: '53,245 views  .  3 days ago',
+                    text: difference.inDays == 0
+                        ? '${video.viewers} views  .  Today'
+                        : '${video.viewers} views  .  ${difference.inDays} days ago',
                     textColor: Colors.grey,
                     fontSize: 13,
                     fontWeight: FontWeight.w400),
@@ -70,19 +75,18 @@ class PlayVideoScreen extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 20.r,
-                          backgroundImage:
-                              NetworkImage('assets/images/test3.png'),
+                          backgroundImage: NetworkImage(video.channelImage),
                         ),
                         SizedBox(width: 8.w),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextWidget(
-                                text: 'Mega Bangla Tv',
+                                text: video.channelName,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500),
                             TextWidget(
-                                text: '3M Subscribers',
+                                text: '${video.channelSubscriber} Subscribers',
                                 textColor: Colors.grey,
                                 fontSize: 11,
                                 fontWeight: FontWeight.w400),
@@ -92,7 +96,7 @@ class PlayVideoScreen extends StatelessWidget {
                     ),
                     Container(
                       width: 109.w,
-                      height: 33.h,
+                      height: 40.h,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 14, vertical: 8),
                       decoration: BoxDecoration(
@@ -134,14 +138,13 @@ class PlayVideoScreen extends StatelessWidget {
                 SizedBox(height: 8.h),
                 TextFormField(
                   style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500
-                  ),
+                      fontSize: 12, fontWeight: FontWeight.w500),
                   decoration: InputDecoration(
                       isDense: true,
                       hintText: 'Add Comment',
                       hintStyle: const TextStyle(color: Colors.grey),
-                      suffixIcon: const Icon(Icons.send_rounded, color: Colors.grey),
+                      suffixIcon:
+                          const Icon(Icons.send_rounded, color: Colors.grey),
                       focusedBorder: OutlineInputBorder(
                           borderSide: const BorderSide(color: Colors.blue),
                           borderRadius: BorderRadius.circular(6)),
@@ -149,7 +152,7 @@ class PlayVideoScreen extends StatelessWidget {
                           borderSide: const BorderSide(color: Colors.grey),
                           borderRadius: BorderRadius.circular(6)),
                       filled: true,
-                      fillColor: Colors.white),
+                      fillColor: Colors.grey.withOpacity(0.2)),
                 ),
                 SizedBox(height: 16.h),
                 Row(
@@ -157,7 +160,7 @@ class PlayVideoScreen extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 16.r,
-                      backgroundImage: NetworkImage("assets/images/test4.png"),
+                      backgroundImage: AssetImage("assets/images/test4.png"),
                     ),
                     SizedBox(width: 7.w),
                     Column(
@@ -189,7 +192,8 @@ class PlayVideoScreen extends StatelessWidget {
                         SizedBox(
                           width: 306.w,
                           child: const TextWidget(
-                              text: "হুজুরের বক্তব্য গুলো ইংরেজি তে অনুবাদ করে সারা পৃথিবীর মানুষদের কে শুনিয়ে দিতে হবে। কথা গুলো খুব দামি",
+                              text:
+                                  "হুজুরের বক্তব্য গুলো ইংরেজি তে অনুবাদ করে সারা পৃথিবীর মানুষদের কে শুনিয়ে দিতে হবে। কথা গুলো খুব দামি",
                               fontSize: 12,
                               fontWeight: FontWeight.w400),
                         ),

@@ -10,11 +10,11 @@ class VideoModel {
   //final String liveManifest;
   //final bool isLive;
   final String channelImage;
-  //final String channelName;
+  final String channelName;
   //final String channelUsername;
   //final bool isVerified;
   //final String channelSlug;
-  //final String channelSubscriber;
+  final String channelSubscriber;
   //final int channelId;
   //final String type;
   final String viewers;
@@ -33,11 +33,11 @@ class VideoModel {
     // required this.liveManifest,
     // required this.isLive,
     required this.channelImage,
-    // required this.channelName,
+    required this.channelName,
     // required this.channelUsername,
     // required this.isVerified,
     // required this.channelSlug,
-    // required this.channelSubscriber,
+    required this.channelSubscriber,
     // required this.channelId,
     // required this.type,
     required this.viewers,
@@ -58,11 +58,11 @@ class VideoModel {
       // liveManifest: json['live_manifest'] ?? '',
       // isLive: json['is_live'],
       channelImage: json['channel_image'],
-      // channelName: json['channel_name'],
+      channelName: json['channel_name'],
       // channelUsername: json['channel_username'],
       // isVerified: json['is_verified'],
       // channelSlug: json['channel_slug'],
-      // channelSubscriber: json['channel_subscriber'],
+      channelSubscriber: json['channel_subscriber'],
       // channelId: json['channel_id'],
       // type: json['type'],
       viewers: json['viewers'],
