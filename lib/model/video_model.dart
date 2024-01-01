@@ -2,7 +2,7 @@ class VideoModel {
   final String thumbnail;
   //final int id;
   final String title;
-  final String dateAndTime;
+  final DateTime dateAndTime;
   //final String slug;
   //final String createdAt;
   //final String manifest;
@@ -50,7 +50,7 @@ class VideoModel {
       thumbnail: json['thumbnail'],
       // id: json['id'],
       title: json['title'],
-      dateAndTime: json['date_and_time'],
+      dateAndTime: DateTime.parse(json['date_and_time']),
       // slug: json['slug'],
       // createdAt: json['created_at'],
       // manifest: json['manifest'],
