@@ -28,80 +28,83 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextWidget(text: 'Trending Videos'),
+              const TextWidget(text: 'Trending Videos'),
               SizedBox(height: 16.h),
-              ListView.builder(
-                shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Container(
-                      width: 346.w,
-                      height: 192.h,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/images/test.png"),
-                              fit: BoxFit.cover)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: Container(
-                            width: 35,
-                            height: 17,
-                            decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(4)),
-                            child: Center(
-                                child: TextWidget(
-                                    text: '3:40',
-                                    textColor: Colors.white,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500)),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 16.h),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+
+              Consumer(builder: (context, watch, child) {
+                final videos = ref.watch(videoProvider);
+                return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: videos.length,
+                    itemBuilder: (context, index) {
+                      return Column(
                         children: [
-                          CircleAvatar(
-                            radius: 20.spMax,
-                            backgroundImage: AssetImage("assets/images/test2.png"),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 235.w,
-                                child: TextWidget(
-                                    text:
-                                    "আরব নেতাদের যে ভুলে ফি*লি*স্তি*নের এই দুর্দাশা | আবু ত্বহা মুহাম্মদ আদনান",
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600),
+                          Container(
+                            width: 346.w,
+                            height: 192.h,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: NetworkImage(videos[index].thumbnail),
+                                    fit: BoxFit.cover)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: Align(
+                                alignment: Alignment.bottomRight,
+                                child: Container(
+                                  width: 35,
+                                  height: 17,
+                                  decoration: BoxDecoration(
+                                      color: Colors.black,
+                                      borderRadius: BorderRadius.circular(4)),
+                                  child: Center(
+                                      child: TextWidget(
+                                          text: videos[index].duration,
+                                          textColor: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500)),
+                                ),
                               ),
-                              SizedBox(height: 8.h),
-                              TextWidget(
-                                  text: '53,245 views  .  Feb 21,2021',
-                                  textColor: Colors.grey,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w400)
-                            ],
+                            ),
                           ),
-                          const Icon(Icons.more_vert_outlined, color: Colors.grey)
+                          SizedBox(height: 16.h),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CircleAvatar(
+                                  radius: 20.spMax,
+                                  backgroundImage: NetworkImage(videos[index].channelImage),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: 235.w,
+                                      child: TextWidget(
+                                          text: videos[index].title,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    SizedBox(height: 8.h),
+                                    TextWidget(
+                                        text: '${videos[index].viewers} views  .  Feb 21,2021',
+                                        textColor: Colors.grey,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w400)
+                                  ],
+                                ),
+                                const Icon(Icons.more_vert_outlined, color: Colors.grey)
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 18.h)
                         ],
-                      ),
-                    ),
-                    SizedBox(height: 18.h)
-                  ],
-                );
-              }),
+                      );
+                    });
+              })
             ],
           ),
         ),
