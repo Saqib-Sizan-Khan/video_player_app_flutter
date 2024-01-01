@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:video_player_app_flutter/model/video_model.dart';
 import 'package:video_player_app_flutter/providers/video_provider.dart';
 import 'package:video_player_app_flutter/views/video_play_screen.dart';
 import 'package:video_player_app_flutter/widgets/text_widget.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
-
-  // @override
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -22,7 +21,7 @@ class HomeScreen extends ConsumerWidget {
               const TextWidget(text: 'Trending Videos'),
               SizedBox(height: 12.h),
               Consumer(builder: (context, watch, child) {
-                final videos = ref.watch(videoProvider);
+                AsyncValue<List<VideoModel>> videos = ref.watch(videoProvider);
                 return videos.when(
                     data: (videoData) {
                       return Column(
@@ -67,8 +66,7 @@ class HomeScreen extends ConsumerWidget {
                                                       BorderRadius.circular(4)),
                                               child: Center(
                                                   child: TextWidget(
-                                                      text:
-                                                          videoData[index].duration,
+                                                      text: videoData[index].duration,
                                                       textColor: Colors.white,
                                                       fontSize: 12,
                                                       fontWeight: FontWeight.w500)),
@@ -128,10 +126,10 @@ class HomeScreen extends ConsumerWidget {
                               height: 40.h,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  ref.refresh(videoProvider);
+                                  videos = ref.refresh(videoProvider);
                                 },
                                 style: ElevatedButton.styleFrom(
-                                    primary: Colors.grey.shade50,
+                                    backgroundColor: Colors.grey.shade50,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12)),
                                     side: const BorderSide(width: 1, color: Colors.grey)),
