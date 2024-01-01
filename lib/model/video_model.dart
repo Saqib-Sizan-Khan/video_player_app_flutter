@@ -5,7 +5,7 @@ class VideoModel {
   final DateTime dateAndTime;
   //final String slug;
   //final String createdAt;
-  //final String manifest;
+  final String manifest;
   //final int liveStatus;
   //final String liveManifest;
   //final bool isLive;
@@ -28,7 +28,7 @@ class VideoModel {
     required this.dateAndTime,
     // required this.slug,
     // required this.createdAt,
-    // required this.manifest,
+    required this.manifest,
     // required this.liveStatus,
     // required this.liveManifest,
     // required this.isLive,
@@ -53,7 +53,7 @@ class VideoModel {
       dateAndTime: DateTime.parse(json['date_and_time']),
       // slug: json['slug'],
       // createdAt: json['created_at'],
-      // manifest: json['manifest'],
+      manifest: json['manifest'],
       // liveStatus: json['live_status'],
       // liveManifest: json['live_manifest'] ?? '',
       // isLive: json['is_live'],

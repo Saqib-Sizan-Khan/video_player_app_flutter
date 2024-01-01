@@ -1,18 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:video_player_app_flutter/model/video_model.dart';
 import 'package:video_player_app_flutter/widgets/action_container.dart';
 import 'package:video_player_app_flutter/widgets/text_widget.dart';
+import 'package:video_player/video_player.dart';
 
-class PlayVideoScreen extends StatelessWidget {
+class PlayVideoScreen extends ConsumerStatefulWidget {
   const PlayVideoScreen({super.key, required this.video});
 
   final VideoModel video;
 
   @override
+  ConsumerState<PlayVideoScreen> createState() => _PlayVideoScreenState();
+}
+
+class _PlayVideoScreenState extends ConsumerState<PlayVideoScreen> {
+
+  late VideoPlayerController _controller;
+  bool isVideoPlaying = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.video.manifest))
+      ..initialize().then((_) {
+        setState(() {});
+      });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
-    Duration difference = now.difference(video.dateAndTime);
+    Duration difference = now.difference(widget.video.dateAndTime);
 
     return Scaffold(
       body: Column(
@@ -22,7 +48,27 @@ class PlayVideoScreen extends StatelessWidget {
             height: 211.h,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: NetworkImage(video.thumbnail), fit: BoxFit.cover)),
+                    image: NetworkImage(widget.video.thumbnail), fit: BoxFit.cover)),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                if (!_controller.value.isInitialized || !isVideoPlaying)
+                  IconButton(
+                    icon: Icon(Icons.play_circle_filled, size: 64),
+                    onPressed: () {
+                      setState(() {
+                        isVideoPlaying = true;
+                        _controller.play();
+                      });
+                    },
+                  ),
+                if (_controller.value.isInitialized && isVideoPlaying)
+                  AspectRatio(
+                    aspectRatio: _controller.value.aspectRatio,
+                    child: VideoPlayer(_controller),
+                  ),
+              ],
+            ),
           ),
           SizedBox(height: 15.h),
           Padding(
@@ -33,15 +79,15 @@ class PlayVideoScreen extends StatelessWidget {
                 SizedBox(
                   width: double.maxFinite,
                   child: TextWidget(
-                      text: video.title,
+                      text: widget.video.title,
                       fontSize: 15,
                       fontWeight: FontWeight.w600),
                 ),
                 SizedBox(height: 8.h),
                 TextWidget(
                     text: difference.inDays == 0
-                        ? '${video.viewers} views  .  Today'
-                        : '${video.viewers} views  .  ${difference.inDays} days ago',
+                        ? '${widget.video.viewers} views  .  Today'
+                        : '${widget.video.viewers} views  .  ${difference.inDays} days ago',
                     textColor: Colors.grey,
                     fontSize: 13,
                     fontWeight: FontWeight.w400),
@@ -75,18 +121,18 @@ class PlayVideoScreen extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 20.r,
-                          backgroundImage: NetworkImage(video.channelImage),
+                          backgroundImage: NetworkImage(widget.video.channelImage),
                         ),
                         SizedBox(width: 8.w),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextWidget(
-                                text: video.channelName,
+                                text: widget.video.channelName,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500),
                             TextWidget(
-                                text: '${video.channelSubscriber} Subscribers',
+                                text: '${widget.video.channelSubscriber} Subscribers',
                                 textColor: Colors.grey,
                                 fontSize: 11,
                                 fontWeight: FontWeight.w400),
