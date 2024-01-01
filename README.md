@@ -1,16 +1,22 @@
-# video_player_app_flutter
+# Video Player Flutter App
 
-A new Flutter project.
+A Flutter application for playing trending videos, built with a clean and modular architecture. The app utilizes Riverpod for state management and integrates the Flick Video Player for a seamless video playback experience.
 
-## Getting Started
+## Features
+- **Trending Videos**: Display a list of trending videos fetched from an API.
+- **Video Playback**: Play videos with controls for pause, play, seeking, and fullscreen.
+- **Video Details**: View detailed information about the video, including title, views, and channel details.
+- **Comments Section**: Engage with other users by adding comments and viewing comments from others.
 
-This project is a starting point for a Flutter application.
+## Technologies Used
+- **Trending Videos**: A UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
+- **Riverpod**: A simple and flexible state management library for Flutter.
+- **Flick Video Player**: A video player package for Flutter with customizable controls.
 
-A few resources to get you started if this is your first Flutter project:
+## Installation Steps
+1. Clone the repository: `git clone https://github.com/Saqib-Sizan-Khan/video_player_app_flutter`
+2. Navigate to the project directory: `cd video_player_app_flutter`
+3. Run `flutter pub get` to install dependencies.
+4. Launch the app using `flutter run`.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
